@@ -1,6 +1,6 @@
 # University Management System
 
-Консольна програма для управління університетом. Курсовий проект з Java.
+Консольна програма для управління університетом.
 
 ## Структура проекту
 
@@ -46,5 +46,3 @@ src/university/
 javac -d out $(find src -name "*.java")
 java -cp out university.Main
 ```
-
-Вимоги: Java 8+
