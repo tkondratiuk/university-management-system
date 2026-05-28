@@ -31,16 +31,16 @@ public class CourseService {
         Arrays.stream(courses, 0, count).forEach(System.out::println);
     }
 
-    public Course findById(int id) {
+    public Course findById(int courseId) {
         return Arrays.stream(courses, 0, count)
-                     .filter(course -> course.getId() == id)
+                     .filter(course -> course.getId() == courseId)
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException("Курс з ID " + id + " не знайдено"));
+                     .orElseThrow(() -> new IllegalArgumentException("Курс з ID " + courseId + " не знайдено"));
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int courseId) {
         for (int i = 0; i < count; i++) {
-            if (courses[i].getId() == id) {
+            if (courses[i].getId() == courseId) {
                 courses[i] = courses[count - 1];
                 courses[count - 1] = null;
                 count--;
@@ -50,8 +50,8 @@ public class CourseService {
         return false;
     }
 
-    public boolean update(int id, String name, int credits, Teacher teacher) {
-        Course course = findById(id);
+    public boolean update(int courseId, String name, int credits, Teacher teacher) {
+        Course course = findById(courseId);
         course.setName(name);
         course.setCredits(credits);
         course.setTeacher(teacher);
@@ -63,7 +63,9 @@ public class CourseService {
                            .filter(course -> course.getTeacher() != null && course.getTeacher().getId() == teacherId)
                            .peek(System.out::println)
                            .count();
-        if (found == 0) System.out.println("Курсів для цього викладача не знайдено.");
+        if (found == 0) {
+            System.out.println("Курсів для цього викладача не знайдено.");
+        }
     }
 
     public int getCount() {

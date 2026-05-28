@@ -32,16 +32,16 @@ public class TeacherService {
               .forEach(System.out::println);
     }
 
-    public Teacher findById(int id) {
+    public Teacher findById(int teacherId) {
         return Arrays.stream(teachers, 0, count)
-                     .filter(teacher -> teacher.getId() == id)
+                     .filter(teacher -> teacher.getId() == teacherId)
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException("Викладача з ID " + id + " не знайдено"));
+                     .orElseThrow(() -> new IllegalArgumentException("Викладача з ID " + teacherId + " не знайдено"));
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int teacherId) {
         for (int i = 0; i < count; i++) {
-            if (teachers[i].getId() == id) {
+            if (teachers[i].getId() == teacherId) {
                 teachers[i] = teachers[count - 1];
                 teachers[count - 1] = null;
                 count--;
@@ -51,8 +51,8 @@ public class TeacherService {
         return false;
     }
 
-    public boolean update(int id, String name, String email, TeacherPosition position, double salary) {
-        Teacher teacher = findById(id);
+    public boolean update(int teacherId, String name, String email, TeacherPosition position, double salary) {
+        Teacher teacher = findById(teacherId);
         teacher.setName(name);
         teacher.setEmail(email);
         teacher.setPosition(position);

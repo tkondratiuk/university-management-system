@@ -42,19 +42,19 @@ public class EnrollmentService {
         Arrays.stream(enrollments, 0, count).forEach(System.out::println);
     }
 
-    public Enrollment findById(int id) {
+    public Enrollment findById(int enrollmentId) {
         return Arrays.stream(enrollments, 0, count)
-                     .filter(enrollment -> enrollment.getId() == id)
+                     .filter(enrollment -> enrollment.getId() == enrollmentId)
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException("Зарахування з ID " + id + " не знайдено"));
+                     .orElseThrow(() -> new IllegalArgumentException("Зарахування з ID " + enrollmentId + " не знайдено"));
     }
 
-    public void setGrade(int id, Grade grade) {
-        findById(id).setGrade(grade);
+    public void setGrade(int enrollmentId, Grade grade) {
+        findById(enrollmentId).setGrade(grade);
     }
 
-    public void markPaid(int id) {
-        findById(id).markAsPaid();
+    public void markPaid(int enrollmentId) {
+        findById(enrollmentId).markAsPaid();
     }
 
     public void showTranscript(Student student) {
@@ -76,7 +76,9 @@ public class EnrollmentService {
                                  .filter(enrollment -> !enrollment.isPaid())
                                  .peek(System.out::println)
                                  .count();
-        if (unpaidCount == 0) System.out.println("Всі зарахування оплачені.");
+        if (unpaidCount == 0) {
+            System.out.println("Всі зарахування оплачені.");
+        }
     }
 
     public double averageGPAByCourse(Course course) {

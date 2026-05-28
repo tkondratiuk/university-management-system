@@ -32,16 +32,16 @@ public class StudentService {
         Arrays.stream(students, 0, count).forEach(System.out::println);
     }
 
-    public Student findById(int id) {
+    public Student findById(int studentId) {
         return Arrays.stream(students, 0, count)
-                     .filter(student -> student.getId() == id)
+                     .filter(student -> student.getId() == studentId)
                      .findFirst()
-                     .orElseThrow(() -> new IllegalArgumentException("Студента з ID " + id + " не знайдено"));
+                     .orElseThrow(() -> new IllegalArgumentException("Студента з ID " + studentId + " не знайдено"));
     }
 
-    public boolean delete(int id) {
+    public boolean delete(int studentId) {
         for (int i = 0; i < count; i++) {
-            if (students[i].getId() == id) {
+            if (students[i].getId() == studentId) {
                 students[i] = students[count - 1];
                 students[count - 1] = null;
                 count--;
@@ -51,16 +51,16 @@ public class StudentService {
         return false;
     }
 
-    public boolean update(int id, String name, String email, int year) {
-        Student student = findById(id);
+    public boolean update(int studentId, String name, String email, int year) {
+        Student student = findById(studentId);
         student.setName(name);
         student.setEmail(email);
         student.setYearOfStudy(year);
         return true;
     }
 
-    public boolean changeStatus(int id, StudentStatus status) {
-        Student student = findById(id);
+    public boolean changeStatus(int studentId, StudentStatus status) {
+        Student student = findById(studentId);
         student.setStatus(status);
         return true;
     }
@@ -70,7 +70,9 @@ public class StudentService {
                            .filter(student -> student.getStatus() == status)
                            .peek(System.out::println)
                            .count();
-        if (found == 0) System.out.println("Студентів зі статусом " + status + " не знайдено.");
+        if (found == 0) {
+            System.out.println("Студентів зі статусом " + status + " не знайдено.");
+        }
     }
 
     public void showSortedByName() {
